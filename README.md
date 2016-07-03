@@ -91,7 +91,27 @@ Call `readlineLiteral` as a javascript template tag.
 
 The promise returned resolves to the interpolated string.
 
+### Template values
+
+There are two types of values you can put in the template literal.
+
+1.	The values in the template literal passed to `readlineLiteral` can be a string that is turned into a question.
+2.	The values can also be an array of length 2 with the value at index zero being the string that is turned into a question, and the value at index 1 being a default value.
+
+So you can do this for no default:
+
+```javascript
+rll`Hello ${'who? '}!`.then((result)=>{console.log(result)});
+```
+
+or this to have a default value:
+
+```javascript
+rll`Hello ${['who? ', 'world']}!`.then((result)=>{console.log(result)});
+```
+
 readlineLiteral.compile(text) -> Promise
+----------------------------------------
 
 Compile some text that looks like a *template literal*, and **start readline right away**.
 
