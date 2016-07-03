@@ -57,3 +57,8 @@ module.exports = function createReadlineLiteral(options){
 
     return readlineLiteral;
 };
+
+/*
+git remote add origin https://github.com/hollowdoor/readline_literal.git
+git push -u origin master
+*/
