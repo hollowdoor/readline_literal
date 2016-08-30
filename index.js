@@ -11,6 +11,7 @@ module.exports = function createReadlineLiteral(options){
         output: process.stdout,
         terminal:  true
     });
+    const trim = typeof options.trim === 'boolean' ? options.trim : true;
 
     function readlineLiteral(strings){
 
@@ -37,7 +38,7 @@ module.exports = function createReadlineLiteral(options){
             done = true;
             rl.close();
 
-            resolve(result);
+            resolve(trim ? result.trim() : result);
         }
 
         return new Promise((resolve, reject)=>{
