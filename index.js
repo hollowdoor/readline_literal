@@ -1,5 +1,6 @@
 "use strict";
 const readline = require('readline');
+const Query = require('./query');
 
 module.exports = function createReadlineLiteral(options){
     options = options || {};
@@ -23,15 +24,11 @@ module.exports = function createReadlineLiteral(options){
         function ask(resolve, reject){
 
             if(++index < values.length){
+                let query = new Query().ask(values[index]);
 
-                let hasDefault = isArray(values[index]) && values[index].length === 2,
-                    question = !hasDefault ? values[index] + '' : values[index][0] + '',
-                    def = hasDefault ? values[index][1] : null;
+                return rl.question(query.question, (answer)=>{
+                    answer = query.reply(answer);
 
-                return rl.question(question, (answer)=>{
-                    if(answer === '' && hasDefault){
-                        answer = def;
-                    }
                     result += map(answer) + strings[index + 1];
                     ask(resolve, reject);
                 });
@@ -61,12 +58,16 @@ module.exports = function createReadlineLiteral(options){
         return run(readlineLiteral);
     };
 
+    readlineLiteral.Query = Query;
+
     return readlineLiteral;
 };
 
 function isArray(val){
     return Object.prototype.toString.call(val) === '[object Array]';
 }
+
+module.exports.Query = Query;
 
 /*
 git remote add origin https://github.com/hollowdoor/readline_literal.git

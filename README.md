@@ -53,6 +53,31 @@ fsp.readFile('src.json', 'utf8').then((text)=>{
 .catch((err)=>console.log(err));
 ```
 
+Example 3 - Custom Query
+------------------------
+
+```javascript
+const rll = require('readline-literal')();
+const list = new rll.Query((answer)=>{
+    return answer.split(',').map((item)=>{
+        return '- ' + item.trim();
+    }).join('\n');
+});
+
+rll`Items
+${list.ask('Items: ')}
+`.then((result)=>{
+    console.log(result);
+}, (err) => {
+    console.log(err)
+});
+/*Result equals:
+Items
+- one
+- two
+*/
+```
+
 About
 -----
 
