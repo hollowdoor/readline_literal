@@ -6,6 +6,13 @@ Install
 
 `npm install --save readline-literal`
 
+Some information
+----------------
+
+As of version 1.3 questions that are identical only get answered once.
+
+There was a bug in before version 1.3 where the template tag could only be used once. This is now fixed.
+
 Example 1
 ---------
 
