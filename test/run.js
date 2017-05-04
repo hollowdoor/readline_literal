@@ -16,7 +16,10 @@ rll`Hello ${'who? '}!`.then((result)=>{
 });
 
 function testDouble(){
-    return rll`Hello ${'what? '}! and ${'what? '}`.then((result)=>{
+    return rll`Hello ${'what? '}! and ${'what? '} and
+     ${'what? '} and
+      ${'what? '}`
+    .then((result)=>{
         //You will be prompted with "who? "
         //result is the interpolated string with all of your input.
         console.log(result);

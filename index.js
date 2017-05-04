@@ -30,7 +30,7 @@ module.exports = function createReadlineLiteral(options){
                 let query = new Query().ask(values[index]);
 
                 if(query.question in asked){
-                    result += asked[query.question];
+                    result += asked[query.question] + strings[index + 1];
                     return ask(resolve, reject);
                 }
 
