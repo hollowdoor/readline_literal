@@ -6,14 +6,15 @@ module.exports = function createReadlineLiteral(options){
     options = options || {};
 
     const map = typeof options.map === 'function' ? options.map : (val)=>val;
-    const rl = options.interface || readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-        terminal:  true
-    });
     const trim = typeof options.trim === 'boolean' ? options.trim : true;
 
     function readlineLiteral(strings){
+
+        const rl = options.interface || readline.createInterface({
+            input: process.stdin,
+            output: process.stdout,
+            terminal:  true
+        });
 
         const values = [].slice.call(arguments, 1);
 
@@ -27,9 +28,9 @@ module.exports = function createReadlineLiteral(options){
             if(++index < values.length){
                 let query = new Query().ask(values[index]);
 
-                return rl.question(query.question, (answer)=>{
+                return rl.question(query.question, answer => {
                     answer = query.reply(answer);
-
+                    
                     result += map(answer) + strings[index + 1];
                     ask(resolve, reject);
                 });
