@@ -21,17 +21,24 @@ module.exports = function createReadlineLiteral(options){
         let index = -1,
             result = strings[0],
             done = false,
-            exit = false;
+            exit = false,
+            asked = Object.create(null);
 
         function ask(resolve, reject){
 
             if(++index < values.length){
                 let query = new Query().ask(values[index]);
 
+                if(query.question in asked){
+                    result += asked[query.question];
+                    return ask(resolve, reject);
+                }
+
                 return rl.question(query.question, answer => {
                     answer = query.reply(answer);
-                    
+
                     result += map(answer) + strings[index + 1];
+                    asked[query.question] = answer;
                     ask(resolve, reject);
                 });
             }
